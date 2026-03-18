@@ -17,9 +17,8 @@
 
 #include <print>
 
-int
+void
 cler()
 {
-                std::println("Hello world!");
-                return 0;
+                std::println("hello world!");
 }

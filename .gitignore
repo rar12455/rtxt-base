@@ -29,6 +29,8 @@ tags
 *.lo
 *.o
 *.obj
+rtxi
+backend
 
 # Build directory
 build/

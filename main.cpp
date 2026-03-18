@@ -140,8 +140,8 @@ main(int argc, char **argv)
                 {
 
                                 // scan_input(argv);
+                                cler();
                 }
-                cler();
 
                 return 0;
 }
