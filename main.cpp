@@ -140,7 +140,7 @@ main(int argc, char **argv)
                 {
 
                                 // scan_input(argv);
-                                cler();
+                                rtxt::tokenize_input(argv);
                 }
 
                 return 0;

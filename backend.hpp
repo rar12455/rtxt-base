@@ -1,4 +1,9 @@
 #ifndef BACKEND_H
 #define BACKEND_H
-int cler(void);
+
+namespace rtxt
+{
+void tokenize_input(char **argv);
+}
+
 #endif

@@ -15,10 +15,66 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <print>
+#include <cctype>
+#include <iostream>
+
+enum class token_type // var_t means it's a token type
+{
+                number_t = 255,
+                plus_t,
+                minus_t,
+                divide_t,
+                multiply_t,
+                end_t
+};
+
+struct token
+{
+                token_type type;
+                char     **value;
+};
+
+namespace rtxt
+{
 
 void
-cler()
+tokenize_input(char **argv)
 {
-                std::println("hello world!");
+                // wrap the raw pointer in the string_view, so the for loop
+                // knows the boundaries.
+                std::string_view arg_view(argv[1]);
+                for (const auto &i : arg_view)
+                {
+                                if (i == ' ') // ignore whitespace
+                                {
+                                                continue;
+                                }
+                                if (i != '+' && i != '*' && i != '/' &&
+                                    i != '-' &&
+                                    !std::isdigit(
+                                        i)) // ignore non-math spesific chars
+                                {
+                                                continue;
+                                }
+                                std::cout << "argv: " << i << '\n';
+
+                                if (std::isdigit(i))
+                                {
+                                                token_type n =
+                                                    token_type::number_t;
+                                                int value_token_number =
+                                                    static_cast<int>(
+                                                        token_type::number_t);
+                                                std::cout << "cast: "
+                                                          << value_token_number
+                                                          << '\n';
+                                }
+                }
 }
+
+void
+parse_input()
+{
+}
+
+} // namespace rtxt
