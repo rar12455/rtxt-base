@@ -143,5 +143,7 @@ main(int argc, char **argv)
                                 rtxt::tokenize_input(argv);
                 }
 
+                // rtxt::debug::print_enum_info();
+
                 return 0;
 }
