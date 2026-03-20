@@ -81,14 +81,7 @@ tokenize_input(char **argv)
 
                                 if (std::isdigit(i))
                                 {
-                                                token_type n =
-                                                    token_type::number_t;
-                                                int value_token_number =
-                                                    static_cast<int>(
-                                                        token_type::number_t);
-                                                std::cout << "cast: "
-                                                          << value_token_number
-                                                          << '\n';
+                                                //
                                 }
                 }
 }

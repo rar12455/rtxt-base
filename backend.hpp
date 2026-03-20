@@ -3,15 +3,7 @@
 
 #include <cstdint>
 
-enum class token_type : uint8_t
-{
-                number_t,
-                plus_t,
-                minus_t,
-                divide_t,
-                multiply_t,
-                end_t
-}; // var_t means it's a token type
+enum class token_type : uint8_t;
 
 struct token;
 
