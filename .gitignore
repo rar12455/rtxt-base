@@ -30,6 +30,7 @@ tags
 *.o
 *.obj
 rtxi
+ast
 backend
 
 # Build directory

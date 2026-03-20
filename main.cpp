@@ -37,113 +37,111 @@
 void
 print_repl_help()
 {
-                std::cout << "REPL - help:" << std::endl;
-                std::cout
-                    << "1- you can do masic math like: 2 + 2 -> will return 4."
-                    << std::endl;
-                std::cout << "2- you can invoke math functions like sin with "
-                             "value: sin(30) "
-                             "-> will return 1/2"
-                          << std::endl;
+        std::cout << "REPL - help:" << std::endl;
+        std::cout << "1- you can do masic math like: 2 + 2 -> will return 4."
+                  << std::endl;
+        std::cout << "2- you can invoke math functions like sin with "
+                     "value: sin(30) "
+                     "-> will return 1/2"
+                  << std::endl;
 }
 
 void
 exec_system_function(std::string system_command)
 {
-                std::unique_ptr<FILE, decltype(&pclose)> pipe(
-                    popen(system_command.c_str(), "r"), pclose);
+        std::unique_ptr<FILE, decltype(&pclose)> pipe(
+            popen(system_command.c_str(), "r"), pclose);
 
-                if (!pipe)
-                {
-                                std::cout << "Failed to run command.\n";
-                                return;
-                }
+        if (!pipe)
+        {
+                std::cout << "Failed to run command.\n";
+                return;
+        }
 
-                char buffer[128];
-                while (fgets(buffer, sizeof(buffer), pipe.get()) != nullptr)
-                {
-                                std::cout << buffer;
-                }
+        char buffer[128];
+        while (fgets(buffer, sizeof(buffer), pipe.get()) != nullptr)
+        {
+                std::cout << buffer;
+        }
 }
 
 bool
 eval(std::string &t_user_input)
 {
-                std::string prefix_system = "sys:";
+        std::string prefix_system = "sys:";
 
-                if (t_user_input == "exit")
-                {
-                                return false;
-                }
+        if (t_user_input == "exit")
+        {
+                return false;
+        }
 
-                if (!t_user_input.empty())
-                {
-                                add_history(t_user_input.c_str());
-                }
+        if (!t_user_input.empty())
+        {
+                add_history(t_user_input.c_str());
+        }
 
-                if (t_user_input == "clear")
-                {
-                                std::cout << "\033[2J\033[H";
-                }
+        if (t_user_input == "clear")
+        {
+                std::cout << "\033[2J\033[H";
+        }
 
-                if (t_user_input == "help")
-                {
-                                print_repl_help();
-                }
+        if (t_user_input == "help")
+        {
+                print_repl_help();
+        }
 
-                if (t_user_input.starts_with(prefix_system))
-                {
-                                t_user_input.erase(0, prefix_system.length());
-                                exec_system_function(t_user_input);
-                }
+        if (t_user_input.starts_with(prefix_system))
+        {
+                t_user_input.erase(0, prefix_system.length());
+                exec_system_function(t_user_input);
+        }
 
-                return true;
+        return true;
 }
 
 void
 repl()
 {
-                std::string user_input;
-                std::cout << "Welcome to the REPL interface. For help, you can "
-                             "type string "
-                             "literal 'help'."
-                          << std::endl;
-                while (true)
-                {
+        std::string user_input;
+        std::cout << "Welcome to the REPL interface. For help, you can "
+                     "type string "
+                     "literal 'help'."
+                  << std::endl;
+        while (true)
+        {
 
-                                char *line = readline(
-                                    "\001\033[1;32m\002>> \001\033[0m\002");
+                char *line = readline("\001\033[1;32m\002>> \001\033[0m\002");
 
-                                if (!line)
-                                                break; // Ctrl+D
+                if (!line)
+                        break; // Ctrl+D
 
-                                std::string input(line);
-                                free(line);
-                                if (!eval(input))
-                                                break;
-                }
+                std::string input(line);
+                free(line);
+                if (!eval(input))
+                        break;
+        }
 }
 
 int
 main(int argc, char **argv)
 {
-                if (argc < 2)
-                {
-                                std::cout << RED_m
-                                          << "No argument found, switching to "
-                                             "REPL mode"
-                                          << RESET_m << std::endl;
+        if (argc < 2)
+        {
+                std::cout << RED_m
+                          << "No argument found, switching to "
+                             "REPL mode"
+                          << RESET_m << std::endl;
 
-                                repl();
-                }
-                else
-                {
+                repl();
+        }
+        else
+        {
 
-                                // scan_input(argv);
-                                rtxt::tokenize_input(argv);
-                }
+                // scan_input(argv);
+                rtxt::tokenize_input(argv);
+        }
 
-                // rtxt::debug::print_enum_info();
+        // rtxt::debug::print_enum_info();
 
-                return 0;
+        return 0;
 }

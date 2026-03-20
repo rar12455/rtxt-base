@@ -15,6 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <array>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -22,43 +23,47 @@
 void
 bytecode_parse(std::string line)
 {
-                for (const auto &i : line)
-                {
+        std::array<std::string, 10> instruction_set = {
+            "READ",
+            "PRINT",
+        };
+        for (const auto &i : line)
+        {
 
-                                if (i == ' ')
-                                {
-                                                continue; // ignore whitespace
-                                }
-                                std::cout << "test: " << i << '\n';
+                if (i == ' ')
+                {
+                        continue; // ignore whitespace
                 }
+                std::cout << "test: " << i << '\n';
+        }
 }
 
 int
 bytecode_read(auto data_path)
 {
-                std::ifstream file(data_path);
-                std::string   line;
+        std::ifstream file(data_path);
+        std::string   line;
 
-                if (file.is_open())
+        if (file.is_open())
+        {
+                while (std::getline(file, line))
                 {
-                                while (std::getline(file, line))
-                                {
-                                                bytecode_parse(line);
-                                }
-                                file.close();
+                        bytecode_parse(line);
                 }
-                else
-                {
-                                std::cerr << "unable to open file, exiting.";
-                                return -1;
-                }
-                return 0;
+                file.close();
+        }
+        else
+        {
+                std::cerr << "unable to open file, exiting.";
+                return -1;
+        }
+        return 0;
 }
 
 int
 main()
 {
-                auto file_path = "/home/rar/notes.txt";
-                bytecode_read(file_path);
-                return 0;
+        auto file_path = "/home/rar/notes.txt";
+        bytecode_read(file_path);
+        return 0;
 }
